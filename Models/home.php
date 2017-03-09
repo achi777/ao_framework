@@ -17,6 +17,7 @@ class Model extends start
     }
 
     public function satesto(){
+        /**Select**/
         $this->db->select("*");
         $this->db->from("information");
         //$this->db->join("cat","cat.cat_id=information.cat_id","left");
@@ -24,7 +25,29 @@ class Model extends start
         $this->db->join_where("cat.cat_id","information.cat_id");
         $this->db->join_method("inner");
         $this->db->where("information.id","21");
-        $result = $this->db->get();
+        $result = $this->db->run();
+        /*Insert*/
+        /*
+        $this->db->table("information");
+        $this->db->columns("name_geo", "name_eng");
+        $this->db->values("test i", "test eng i");
+        $this->db->run();
+        */
+        /*Update*/
+        /*
+        $this->db->table("information");
+        $this->db->columns("name_geo", "name_eng");
+        $this->db->values("test i 5% & 5*5 +7 -21 =(45645) #@!<>?", "test eng i gdfhgdfhg");
+        $this->db->where("id","22");
+        $this->db->run();
+        */
+        /*delete*/
+        /*
+        $this->db->table("information");
+        $this->db->where("id","22");
+        $this->db->delete();
+        */
+
         return $result;
     }
 

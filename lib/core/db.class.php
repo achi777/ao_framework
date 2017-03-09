@@ -20,6 +20,8 @@ class db
     public $limitStr;
     public $queryType;
     public $queryStr;
+    public $insertColumns;
+    public $insertValues;
     public $records;
     public $sqlQuery;
     public $mysqli;
@@ -47,6 +49,14 @@ class db
         $this->table = $table;
     }
 
+    public function into($table){
+        $this->table = $table;
+    }
+
+    public function table($table){
+        $this->table = $table;
+    }
+
     public function join_table($table)
     {
         $this->joinTable = $table;
@@ -70,6 +80,27 @@ class db
             $this->joinStr .= " ".$method." JOIN ".$table." ON ".$compareStr;
         }
 
+    }
+
+    public function columns($arguments){
+        $arg = func_get_args();
+        $columns = "";
+        foreach($arg AS $var){
+            $columns .= "`".$var."`,";
+        }
+        $columns = rtrim($columns,',');
+        $this->insertColumns = $columns;
+
+    }
+
+    public function values($arguments){
+        $arg = func_get_args();
+        $values = "";
+        foreach($arg AS $var){
+            $values .= "'".$var."',";
+        }
+        $values = rtrim($values,',');
+        $this->insertValues = $values;
     }
 
     public function like($col,$val)
@@ -192,6 +223,7 @@ class db
         $this->limitStr = "";
         $this->ord = "";
         $this->ordType = "";
+        $this->table = "";
         //echo $query;
         return $query;
     }
@@ -218,6 +250,64 @@ class db
         }
         return $row;
 
+    }
+
+    public function record(){
+        if(!empty($this->insertColumns) && !empty($this->insertValues)){
+            $this->mysqli->query("INSERT INTO ".$this->table." (".$this->insertColumns.") VALUES (".$this->insertValues.")");
+            $this->insertColumns = "";
+            $this->insertValues = "";
+            return $this->mysqli->insert_id;
+        }
+    }
+
+    public function update()
+    {
+        if(!empty($this->filter)){
+            $filter = " WHERE ".$this->filter;
+        }else{
+            $filter = "";
+        }
+        $col = preg_replace('/[^A-Za-z0-9\-,_ @#$%&*()!?{}=<>]/', '', $this->insertColumns);
+        $col = explode(",",$col);
+        $val = preg_replace('/[^A-Za-z0-9\-,_ @#$%&*()!?{}=<>]/', '', $this->insertValues);
+        $val = explode(",",$val);
+        $i = 0;
+        $string = "";
+        foreach($col AS $var){
+            $string .= $var." = '".$val[$i]."',";
+            $i++;
+        }
+        $string = rtrim($string,',');
+        $this->mysqli->query("UPDATE ".$this->table." SET ".$string." ".$filter."");
+        $string = "";
+        $this->insertColumns = "";
+        $this->insertValues = "";
+        $this->filter = "";
+        $this->table = "";
+    }
+
+    public function delete()
+    {
+        $this->mysqli->query("DELETE FROM ".$this->table." WHERE ".$this->filter."");
+        $this->filter = "";
+        $this->table = "";
+    }
+
+    public function query($str)
+    {
+        return $this->mysqli->query($str);
+    }
+
+    public function run(){
+        if(!empty($this->queryStr)){
+            $result = $this->get();
+        }elseif(!empty($this->insertColumns) && !empty($this->insertValues) && !empty($this->filter)){
+            $result = $this->update();
+        }elseif(!empty($this->insertColumns) && !empty($this->insertValues)){
+            $result = $this->record();
+        }
+        return $result;
     }
 
     public function paginationLimit($segment, $num)
@@ -321,39 +411,6 @@ class db
 
         }
         return @$html;
-    }
-
-    public function insert($rows, $values)
-    {
-        //$rows = $this->arrayObj->extractArray($rows);
-        //$values = $this->arrayObj->extractArray($values);
-        //echo "INSERT INTO ".$this->table." (".$rows.") VALUES (".$values.")";
-        $this->mysqli->query("INSERT INTO ".$this->table." (".$rows.") VALUES (".$values.")");
-        return $this->mysqli->insert_id;
-    }
-
-    public function update($valueString)
-    {
-        if(!empty($this->filter)){
-            $filter = " WHERE ".$this->filter;
-        }else{
-            $filter = "";
-        }
-        $valueString = $this->arrayObj->extractAssocArray($valueString);
-        $this->mysqli->query("UPDATE ".$this->table." SET ".$valueString." ".$filter."");
-        $this->filter = "";
-    }
-
-    public function delete($table)
-    {
-        //echo "DELETE FROM ".$table." WHERE ".$this->filter."";
-        $this->mysqli->query("DELETE FROM ".$table." WHERE ".$this->filter."");
-        $this->filter = "";
-    }
-
-    public function query($str)
-    {
-        return $this->mysqli->query($str);
     }
 
     public function  __destruct()
