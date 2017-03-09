@@ -41,7 +41,7 @@ class Model extends start
         $this->db->where("id","22");
         $this->db->run();
         */
-        /*delete*/
+        /*Delete*/
         /*
         $this->db->table("information");
         $this->db->where("id","22");
