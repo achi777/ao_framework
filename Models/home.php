@@ -25,13 +25,13 @@ class Model extends start
         $this->db->join_where("cat.cat_id","information.cat_id");
         $this->db->join_method("inner");
         $this->db->where("information.id","21");
-        $result = $this->db->run();
+        $result = $this->db->run("SELECT");
         /*Insert*/
         /*
         $this->db->table("information");
         $this->db->columns("name_geo", "name_eng");
         $this->db->values("test i", "test eng i");
-        $this->db->run();
+        $this->db->run("INSERT");
         */
         /*Update*/
         /*
@@ -39,13 +39,13 @@ class Model extends start
         $this->db->columns("name_geo", "name_eng");
         $this->db->values("test i 5% & 5*5 +7 -21 =(45645) #@!<>?", "test eng i gdfhgdfhg");
         $this->db->where("id","22");
-        $this->db->run();
+        $this->db->run("UPDATE");
         */
         /*Delete*/
         /*
         $this->db->table("information");
         $this->db->where("id","22");
-        $this->db->delete();
+        $this->db->delete("DELETE");
         */
 
         return $result;

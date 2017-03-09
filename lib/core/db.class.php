@@ -109,7 +109,6 @@ class db
             $this->filter = $col." LIKE '%".$val."%'";
         }else{
             $this->filter .= " AND ".$col." LIKE '%".$val."%'";
-            //$this->filter = "";
         }
 
     }
@@ -129,7 +128,6 @@ class db
             }else{
                 $this->filter .= " AND ".$col."=".$val;
             }
-            //$this->filter = "";
         }
 
     }
@@ -168,9 +166,15 @@ class db
         $this->group = $group;
     }
 
-    public function select($rows)
+    public function select($arguments = "*")
     {
-        $this->queryStr = "SELECT " . $rows;
+        $arg = func_get_args();
+        $columns = "";
+        foreach($arg AS $var){
+            $columns .= $var.",";
+        }
+        $columns = rtrim($columns,',');
+        $this->queryStr = "SELECT " . $columns;
     }
 
     public function queryBuilder()
@@ -211,10 +215,6 @@ class db
         }else{
             $join = "";
         }
-        /*$arr = array(1,2,3,4);
-        echo $this->arrayObj->extractArray($arr);*/
-        /*$arr = array('username' => 'გივი','password' => md5('ასდა სდ'));
-        echo $this->arrayObj->extractAssocArray($arr);*/
         $query = $this->queryStr." FROM " . $this->table." ".$join." ".$where." ".$ordering." ".$group." ".$limit;
         $this->sqlQuery = $query;
         $this->queryStr = "";
@@ -299,7 +299,25 @@ class db
         return $this->mysqli->query($str);
     }
 
-    public function run(){
+    public function run($method = "select"){
+        $method = strtolower($method);
+        switch ($method){
+            case "select":
+                $result = $this->get();
+                break;
+            case "update":
+                $result = $this->update();
+                break;
+            case "insert":
+                $result = $this->record();
+                break;
+            case "delete":
+                $result = $this->delete();
+                break;
+            default:
+                $result = $this->get();
+                break;
+        }
         if(!empty($this->queryStr)){
             $result = $this->get();
         }elseif(!empty($this->insertColumns) && !empty($this->insertValues) && !empty($this->filter)){
@@ -314,8 +332,6 @@ class db
     {
         $urlObj = new url();
         $page = intval($urlObj->segment($segment));
-        //$this->queryType = 'num_rows';
-        //$this->select('*');
         if(!empty($this->filter)){
             $where = "WHERE ".$this->filter;
         }else{
@@ -346,8 +362,6 @@ class db
     {
         $urlObj = new url();
         $page = intval($urlObj->segment($segment));
-
-        //echo $posts;
         $total = intval(($this->records - 1) / $num) + 1;
         if (empty($page) or $page < 0) {
             $page = 1;
@@ -355,7 +369,6 @@ class db
         if ($page > $total) {
             $page = $total;
         }
-        //echo $posts;
         /*****************************************************************/
 
         $url = $_SERVER['REQUEST_URI'];
