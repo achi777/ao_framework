@@ -62,9 +62,14 @@ class db
         $this->joinWhere = $col1."=".$col2;
     }
 
-    public function join($table,$compareStr,$method)
+    public function join($table,$compareStr,$method = "LEFT")
     {
-        $this->joinStr = $method." JOIN ".$table." ON ".$compareStr;
+        if(empty($this->joinStr)){
+            $this->joinStr = $method." JOIN ".$table." ON ".$compareStr;
+        }else{
+            $this->joinStr .= " ".$method." JOIN ".$table." ON ".$compareStr;
+        }
+
     }
 
     public function like($col,$val)
@@ -183,6 +188,7 @@ class db
         $this->sqlQuery = $query;
         $this->queryStr = "";
         $this->filter = "";
+        $this->joinStr = "";
         $this->limitStr = "";
         $this->ord = "";
         $this->ordType = "";
@@ -345,9 +351,9 @@ class db
         $this->filter = "";
     }
 
-    public function simpleQuery($str)
+    public function query($str)
     {
-        $this->mysqli->query($str);
+        return $this->mysqli->query($str);
     }
 
     public function  __destruct()
