@@ -16,3 +16,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
+<body>
+<p>
+    <a href="<?php echo baseurl; ?>/Home" class="btn btn-link">Home</a>
+    <a href="<?php echo baseurl; ?>/pages" class="btn btn-link">Pages</a>
+    <a href="<?php echo baseurl; ?>/upload" class="btn btn-link">Upload</a>
+</p>

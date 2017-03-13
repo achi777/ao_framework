@@ -11,7 +11,6 @@ class load {
     }
     public function model($filename){
         require "Models/".$filename.".php";
-        $model = new Model();
     }
     public function view($filename,$data = ""){
         if(!empty($data)){

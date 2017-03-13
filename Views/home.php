@@ -6,7 +6,6 @@
  * Time: 10:47
  */
 ?>
-<body>
 <h1>view test</h1>
 <p>
     <?php
@@ -15,4 +14,3 @@
         }
     ?>
 </p>
-</body>

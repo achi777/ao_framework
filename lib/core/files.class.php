@@ -36,11 +36,7 @@ class files{
         $tmp = strtolower($file['name']);
         $tmp = explode('.',$tmp);
         $file_ext = end($tmp);
-        //echo $file_ext;
-        //echo $expensions;
-        //$expensions= array($this->ext);
         $expensions = $this->ext;
-        //var_dump($expensions);
         if(in_array($file_ext,$expensions)=== false){
             $errors[]="extension not allowed.";
         }
@@ -49,9 +45,11 @@ class files{
         }
         if(empty($errors)==true){
             move_uploaded_file($file_tmp,$this->path.$this->upload_name);
+            $result = $this->path.$this->upload_name;
         }else{
-            print_r($errors);
+            $result = $errors;
         }
+        return $result;
     }
 
     public function load_file($url){

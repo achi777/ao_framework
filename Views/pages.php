@@ -6,7 +6,6 @@
  * Time: 16:35
  */
 ?>
-<body>
 <h1>view test</h1>
 <p>
     <?php
@@ -20,4 +19,3 @@
     echo $pagination;
     ?>
 </p>
-</body>
