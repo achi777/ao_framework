@@ -2,4 +2,4 @@
 define('dbHost','localhost');
 define('dbUser','root');
 define('dbPass','');
-define('dbName','mycms');
+define('dbName','cms');

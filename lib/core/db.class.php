@@ -373,6 +373,7 @@ class db
 
         $url = $_SERVER['REQUEST_URI'];
         $url = str_replace("/".$page,"",$url);
+        $url = str_replace("/2","",$url);
         $url = str_replace($page,"",$url);
 
         $firstpage = null;
