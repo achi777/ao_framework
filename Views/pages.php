@@ -6,10 +6,10 @@
  * Time: 16:35
  */
 ?>
-<h1>view test</h1>
+<div class="container">
 <p>
     <?php
-        foreach ($zauri AS $value){
+        foreach ($list AS $value){
             echo $value['name_geo']."<br>";
         }
     ?>
@@ -19,3 +19,4 @@
     echo $pagination;
     ?>
 </p>
+</div>

@@ -6,7 +6,7 @@
  * Time: 18:34
  */
 ?>
-<body>
+<div class="container">
 <p>
 <form action="" method="post" enctype="multipart/form-data">
     <input type="file" class="form-control" name="file">
@@ -14,4 +14,4 @@
     <input type="submit" class="btn btn-success" value="upload" name="submit">
 </form>
 </p>
-</body>
+</div>

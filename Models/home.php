@@ -16,7 +16,7 @@ class Model extends start
         $this->id = $this->url->segment(1);
     }
 
-    public function satesto(){
+    public function selectJoin(){
         /**Select**/
         $this->db->select("*");
         $this->db->from("information");

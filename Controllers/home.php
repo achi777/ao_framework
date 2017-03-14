@@ -15,8 +15,7 @@ class Controller extends start {
 
     }
     public function Home(){
-        $data['id'] = 777;
-        $data['zauri'] = $this->model->satesto();
+        $data['selected'] = $this->model->selectJoin();
         $this->load->view("header");
         $this->load->view("home",$data);
         $this->load->view("footer");

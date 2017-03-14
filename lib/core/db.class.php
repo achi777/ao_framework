@@ -25,6 +25,7 @@ class db
     public $records;
     public $sqlQuery;
     public $mysqli;
+    public $sqlStatus;
 
     public function __construct()
     {
@@ -33,9 +34,9 @@ class db
             $this->mysqli = new mysqli(dbHost, dbUser, dbPass, dbName);
             $this->mysqli->set_charset("utf8");
             $this->arrayObj = new arrayObj();
+            $this->sqlStatus = "connected";
         }catch (Exception $e) {
-            echo "Service unavailable";
-            echo "message: " . $e->getMessage();
+            $this->sqlStatus = $e->getMessage();
             exit;
         }
     }
@@ -429,7 +430,12 @@ class db
     public function  __destruct()
     {
         // TODO: Implement __destruct() method.
-        $this->mysqli->close();
+        if($this->sqlStatus == "connected"){
+            $this->mysqli->close();
+        }else{
+            echo $this->sqlStatus;
+        }
+
     }
 }
 

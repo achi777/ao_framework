@@ -6,11 +6,12 @@
  * Time: 10:47
  */
 ?>
-<h1>view test</h1>
+<div class="container">
 <p>
     <?php
-        foreach ($zauri AS $value){
+        foreach ($selected AS $value){
             echo $value['name_geo']."<br>";
         }
     ?>
 </p>
+</div>
