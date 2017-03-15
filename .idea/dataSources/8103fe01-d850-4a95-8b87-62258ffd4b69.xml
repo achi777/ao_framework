@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="ao_cms">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="jabacredit"/>
+    <schema id="5" parent="1" name="mycms"/>
+    <schema id="6" parent="1" name="mysql"/>
+    <schema id="7" parent="1" name="performance_schema"/>
+    <schema id="8" parent="1" name="phpmyadmin"/>
+    <schema id="9" parent="1" name="test"/>
+    <schema id="10" parent="1" name="testcms"/>
+    <schema id="11" parent="1" name="vitube"/>
+    <schema id="12" parent="1" name="waf"/>
+    <schema id="13" parent="1" name="zimo"/>
+    <table id="14" parent="2" name="cat"/>
+    <table id="15" parent="2" name="information"/>
+    <table id="16" parent="2" name="main_info"/>
+    <table id="17" parent="2" name="members"/>
+    <table id="18" parent="2" name="photo_gallery"/>
+    <column id="19" parent="14" name="cat_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="20" parent="14" name="name_geo">
+      <Position>2</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="14" name="name_eng">
+      <Position>3</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="14" name="name_rus">
+      <Position>4</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="23" parent="14" name="page_num">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="14" name="ord">
+      <Position>6</Position>
+      <DataType>enum(&apos;DESC&apos;, &apos;ASC&apos;)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="14" name="meta_k">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="14" name="meta_d">
+      <Position>8</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="14" name="page_title">
+      <Position>9</Position>
+      <DataType>varchar(70)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="14" name="cont">
+      <Position>10</Position>
+      <DataType>enum(&apos;info&apos;, &apos;gallery&apos;, &apos;contact&apos;)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;info&apos;</DefaultExpression>
+    </column>
+    <key id="29" parent="14" name="PRIMARY">
+      <ColNames>cat_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="15" name="cat_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="15" name="name_geo">
+      <Position>3</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="15" name="name_eng">
+      <Position>4</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="15" name="name_rus">
+      <Position>5</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="15" name="desc_geo">
+      <Position>6</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="15" name="desc_eng">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="15" name="desc_rus">
+      <Position>8</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="15" name="full_geo">
+      <Position>9</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="15" name="full_eng">
+      <Position>10</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="15" name="full_rus">
+      <Position>11</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="15" name="visit">
+      <Position>12</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="42" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="43" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="44" parent="16" name="name_geo">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="45" parent="16" name="name_eng">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="46" parent="16" name="name_rus">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="47" parent="16" name="desc_geo">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="48" parent="16" name="desc_eng">
+      <Position>6</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="49" parent="16" name="desc_rus">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="50" parent="16" name="full_geo">
+      <Position>8</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="51" parent="16" name="full_eng">
+      <Position>9</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="52" parent="16" name="full_rus">
+      <Position>10</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="53" parent="16" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="54" parent="17" name="user_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="55" parent="17" name="username">
+      <Position>2</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="17" name="password">
+      <Position>3</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="17" name="status">
+      <Position>4</Position>
+      <DataType>enum(&apos;member&apos;, &apos;admin&apos;)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="58" parent="17" name="ip_address">
+      <Position>5</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="59" parent="17" name="PRIMARY">
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="60" parent="18" name="photo_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="61" parent="18" name="cat_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="62" parent="18" name="photo_url">
+      <Position>3</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="18" name="name_geo">
+      <Position>4</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="18" name="name_eng">
+      <Position>5</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="65" parent="18" name="name_rus">
+      <Position>6</Position>
+      <DataType>varchar(250)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="18" name="desc_geo">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="67" parent="18" name="desc_eng">
+      <Position>8</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="68" parent="18" name="desc_rus">
+      <Position>9</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="69" parent="18" name="PRIMARY">
+      <ColNames>photo_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -15,7 +15,6 @@ class Controller extends start {
 
     }
     public function pages(){
-        $data['id'] = 777;
         $data['list'] = $this->model->pageList();
         $data['pagination'] = $this->model->pagination();
         $this->load->view("header");

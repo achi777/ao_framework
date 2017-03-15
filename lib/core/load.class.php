@@ -23,5 +23,4 @@ class load {
     public function controller($filename){
         require "Controllers/".$filename.".php";
     }
-
 }
