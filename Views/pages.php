@@ -10,7 +10,10 @@
 <p>
     <?php
         foreach ($list AS $value){
-            echo $value['name_geo']."<br>";
+            if(empty($value['id'])){
+                break;
+            }
+            echo $value['name_geo']." <a href=\"".baseurl."/update/".$value['id']."\" class=\"glyphicon glyphicon-pencil\">edit</a><br>";
         }
     ?>
 </p>

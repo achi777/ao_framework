@@ -269,17 +269,18 @@ class db
         }else{
             $filter = "";
         }
-        $col = preg_replace('/[^A-Za-z0-9\-,_ @#$%&*()!?{}=<>]/', '', $this->insertColumns);
+        $col =  $this->insertColumns;
         $col = explode(",",$col);
-        $val = preg_replace('/[^A-Za-z0-9\-,_ @#$%&*()!?{}=<>]/', '', $this->insertValues);
+        $val = $this->insertValues;
         $val = explode(",",$val);
         $i = 0;
         $string = "";
         foreach($col AS $var){
-            $string .= $var." = '".$val[$i]."',";
+            $string .= $var." = ".$val[$i].",";
             $i++;
         }
         $string = rtrim($string,',');
+        echo "UPDATE ".$this->table." SET ".$string." ".$filter."";
         $this->mysqli->query("UPDATE ".$this->table." SET ".$string." ".$filter."");
         $string = "";
         $this->insertColumns = "";

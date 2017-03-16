@@ -31,6 +31,15 @@ class Model extends start
         return $result;
     }
 
+    public function seletcOne($id){
+        /**Select with pagination**/
+        $this->db->select("*");
+        $this->db->from("information");
+        $this->db->where("id",$id);
+        $result = $this->db->run("SELECT");
+        return $result;
+    }
+
     public function pageList(){
         /**Select with pagination**/
         $this->db->select("*");
@@ -46,27 +55,27 @@ class Model extends start
         return $result;
     }
 
-    public function recordToBase(){
+    public function recordToBase($name_geo,$name_eng){
         /*Insert*/
         $this->db->table("information");
         $this->db->columns("name_geo", "name_eng");
-        $this->db->values("test i", "test eng i");
+        $this->db->values($name_geo, $name_eng);
         $this->db->run("INSERT");
     }
 
-    public function updateToBase(){
+    public function updateToBase($id,$name_geo,$name_eng){
         /*Update*/
         $this->db->table("information");
         $this->db->columns("name_geo", "name_eng");
-        $this->db->values("test i 5% & 5*5 +7 -21 =(45645) #@!<>?", "test eng i gdfhgdfhg");
-        $this->db->where("id","22");
+        $this->db->values($name_geo, $name_eng);
+        $this->db->where("id",$id);
         $this->db->run("UPDATE");
     }
 
-    public function deleteFromBase(){
+    public function deleteFromBase($id){
         /*Delete*/
         $this->db->table("information");
-        $this->db->where("id","22");
+        $this->db->where("id",$id);
         $this->db->delete("DELETE");
     }
 

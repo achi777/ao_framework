@@ -25,5 +25,6 @@
         <a href="<?php echo baseurl; ?>/Home" class="btn btn-link">Home</a>
         <a href="<?php echo baseurl; ?>/pages" class="btn btn-link">Pages</a>
         <a href="<?php echo baseurl; ?>/upload" class="btn btn-link">Upload</a>
+        <a href="<?php echo baseurl; ?>/insert" class="btn btn-link">Insert</a>
     </div>
 </div>
