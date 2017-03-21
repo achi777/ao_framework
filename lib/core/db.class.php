@@ -280,7 +280,6 @@ class db
             $i++;
         }
         $string = rtrim($string,',');
-        echo "UPDATE ".$this->table." SET ".$string." ".$filter."";
         $this->mysqli->query("UPDATE ".$this->table." SET ".$string." ".$filter."");
         $string = "";
         $this->insertColumns = "";
