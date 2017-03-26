@@ -16,7 +16,6 @@ class load
     public $input;
     public $validation;
     public $send;
-    public $model;
 
     public function __construct()
     {
@@ -37,7 +36,6 @@ class load
     public function model($filename)
     {
         require "Models/" . $filename . ".php";
-        $this->model = new Model();
     }
 
     public function view($filename, $data = "")
