@@ -236,16 +236,35 @@ class db
         }
         switch($this->queryType){
             case "fetch_array":
-                while($row[] = $result->fetch_array(MYSQLI_NUM));
+                while($res = $result->fetch_array(MYSQLI_NUM)){
+                    if(!empty($res)){
+                        $row[] = $res;
+                    }
+                }
                 break;
             case "fetch_assoc":
-                while($row[] = $result->fetch_assoc());
+                while($res = $result->fetch_assoc()){
+                    if(!empty($res)){
+                        $row[] = $res;
+                    }
+                }
+                break;
+            case "fetch_object":
+                while($res = $result->fetch_object()){
+                    if(!empty($res)){
+                        $row[] = $res;
+                    }
+                }
                 break;
             case "num_rows":
                 $row = $result->num_rows;
                 break;
             default:
-                while($row[] = $result->fetch_assoc());
+                while($res = $result->fetch_object()){
+                    if(!empty($res)){
+                        $row[] = $res;
+                    }
+                }
                 break;
 
         }

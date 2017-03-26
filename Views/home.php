@@ -10,7 +10,7 @@
 <p>
     <?php
         foreach ($selected AS $value){
-            echo $value['name_geo']."<br>";
+            echo $value->name_geo."<br>";
         }
     ?>
 </p>
