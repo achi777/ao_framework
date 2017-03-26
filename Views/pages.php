@@ -5,6 +5,8 @@
  * Date: 13.03.2017
  * Time: 16:35
  */
+
+echo $this->url->browser_info();
 ?>
 <div class="container">
 <p>

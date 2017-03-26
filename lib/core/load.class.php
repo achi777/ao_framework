@@ -1,26 +1,57 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: archil
  * Date: 06.03.2017
  * Time: 13:48
  */
-class load {
-    public function file($filename){
-        include($filename.".php");
+class load
+{
+    public $db;
+    public $load;
+    public $files;
+    public $url;
+    public $convert;
+    public $input;
+    public $validation;
+    public $send;
+    public $model;
+
+    public function __construct()
+    {
+        $this->url = new url();
+        $this->files = new files();
+        $this->db = new db();
+        $this->convert = new convert();
+        $this->input = new input();
+        $this->validation = new validation();
+        $this->send = new send();
     }
-    public function model($filename){
-        require "Models/".$filename.".php";
+
+    public function file($filename)
+    {
+        include($filename . ".php");
     }
-    public function view($filename,$data = ""){
-        if(!empty($data)){
-            foreach ($data as $key => $value){
+
+    public function model($filename)
+    {
+        require "Models/" . $filename . ".php";
+        $this->model = new Model();
+    }
+
+    public function view($filename, $data = "")
+    {
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
                 ${"$key"} = $value;
             }
         }
-        require "Views/".$filename.".php";
+        require "Views/" . $filename . ".php";
     }
-    public function controller($filename){
-        require "Controllers/".$filename.".php";
+
+    public function controller($filename)
+    {
+        require "Controllers/" . $filename . ".php";
     }
 }
