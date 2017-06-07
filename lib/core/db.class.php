@@ -70,7 +70,7 @@ class db
 
     public function join_where($col1,$col2)
     {
-        $this->joinWhere = $col1."=".$col2;
+        $this->joinWhere = $this->mysqli->real_escape_string($col1)."=".$this->mysqli->real_escape_string($col2);
     }
 
     public function join($table,$compareStr,$method = "LEFT")
@@ -87,7 +87,7 @@ class db
         $arg = func_get_args();
         $columns = "";
         foreach($arg AS $var){
-            $columns .= "`".$var."`,";
+            $columns .= "`".$this->mysqli->real_escape_string($var)."`,";
         }
         $columns = rtrim($columns,',');
         $this->insertColumns = $columns;
@@ -98,7 +98,7 @@ class db
         $arg = func_get_args();
         $values = "";
         foreach($arg AS $var){
-            $values .= "'".$var."',";
+            $values .= "'".$this->mysqli->real_escape_string($var)."',";
         }
         $values = rtrim($values,',');
         $this->insertValues = $values;
@@ -107,9 +107,9 @@ class db
     public function like($col,$val)
     {
         if(empty($this->filter)){
-            $this->filter = $col." LIKE '%".$val."%'";
+            $this->filter = $this->mysqli->real_escape_string($col)." LIKE '%".$this->mysqli->real_escape_string($val)."%'";
         }else{
-            $this->filter .= " AND ".$col." LIKE '%".$val."%'";
+            $this->filter .= " AND ".$this->mysqli->real_escape_string($col)." LIKE '%".$this->mysqli->real_escape_string($val)."%'";
         }
 
     }
@@ -117,17 +117,49 @@ class db
     public function where($col,$val)
     {
         if(empty($this->filter)){
-            if (strpos($col.$val, '>') !== false || strpos($col.$val, '<') !== false || strpos($col.$val, '=') !== false) {
-                $this->filter = $col.$val;
+            if (strpos($col.$val, '>=') !== false) {
+                $val = str_replace(">=","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` >= '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<=') !== false){
+                $val = str_replace("<=","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` <= '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<>') !== false){
+                $val = str_replace("<>","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` <> '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '>') !== false){
+                $val = str_replace(">","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` > '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<') !== false){
+                $val = str_replace("<","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` < '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '=') !== false){
+                $val = str_replace("=","",$val);
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."` = '".$this->mysqli->real_escape_string($val)."'";
             }else{
-                $this->filter = $col."=".$val;
+                $this->filter = "`".$this->mysqli->real_escape_string($col)."`='".$this->mysqli->real_escape_string($val)."'";
             }
 
         }else{
-            if (strpos($col.$val, '>') !== false || strpos($col.$val, '<') !== false || strpos($col.$val, '=') !== false) {
-                $this->filter .= " AND ".$col.$val;
+            if (strpos($col.$val, '>=') !== false) {
+                $val = str_replace(">=","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` >= '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<=') !== false){
+                $val = str_replace("<=","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` <= '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<>') !== false){
+                $val = str_replace("<>","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` <> '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '>') !== false){
+                $val = str_replace(">","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` > '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '<') !== false){
+                $val = str_replace("<","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` < '".$this->mysqli->real_escape_string($val)."'";
+            }elseif(strpos($col.$val, '=') !== false){
+                $val = str_replace("=","",$val);
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` = '".$this->mysqli->real_escape_string($val)."'";
             }else{
-                $this->filter .= " AND ".$col."=".$val;
+                $this->filter = " AND `".$this->mysqli->real_escape_string($col)."`='".$this->mysqli->real_escape_string($val)."'";
             }
         }
 
@@ -135,19 +167,51 @@ class db
 
     public function and_where($col,$val)
     {
-        if (strpos($col.$val, '>') !== false || strpos($col.$val, '<') !== false || strpos($col.$val, '=') !== false) {
-            $this->filter .= " AND ".$col.$val;
+        if (strpos($col.$val, '>=') !== false) {
+            $val = str_replace(">=","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` >= '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<=') !== false){
+            $val = str_replace("<=","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` <= '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<>') !== false){
+            $val = str_replace("<>","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` <> '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '>') !== false){
+            $val = str_replace(">","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` > '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<') !== false){
+            $val = str_replace("<","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` < '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '=') !== false){
+            $val = str_replace("=","",$val);
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."` = '".$this->mysqli->real_escape_string($val)."'";
         }else{
-            $this->filter .= " AND ".$col."=".$val;
+            $this->filter = " AND `".$this->mysqli->real_escape_string($col)."`='".$this->mysqli->real_escape_string($val)."'";
         }
     }
 
     public function or_where($col,$val)
     {
-        if (strpos($col.$val, '>') !== false || strpos($col.$val, '<') !== false || strpos($col.$val, '=') !== false) {
-            $this->filter .= " OR ".$col.$val;
+        if (strpos($col.$val, '>=') !== false) {
+            $val = str_replace(">=","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` >= '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<=') !== false){
+            $val = str_replace("<=","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` <= '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<>') !== false){
+            $val = str_replace("<>","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` <> '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '>') !== false){
+            $val = str_replace(">","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` > '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '<') !== false){
+            $val = str_replace("<","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` < '".$this->mysqli->real_escape_string($val)."'";
+        }elseif(strpos($col.$val, '=') !== false){
+            $val = str_replace("=","",$val);
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."` = '".$this->mysqli->real_escape_string($val)."'";
         }else{
-            $this->filter .= " OR ".$col."=".$val;
+            $this->filter = " OR `".$this->mysqli->real_escape_string($col)."`='".$this->mysqli->real_escape_string($val)."'";
         }
     }
 
@@ -172,7 +236,7 @@ class db
         $arg = func_get_args();
         $columns = "";
         foreach($arg AS $var){
-            $columns .= $var.",";
+            $columns .= $this->mysqli->real_escape_string($var).",";
         }
         $columns = rtrim($columns,',');
         $this->queryStr = "SELECT " . $columns;
@@ -186,19 +250,19 @@ class db
             $where = "";
         }
         if(!empty($this->limitStr)){
-            $limit = "LIMIT ".$this->limitStr;
+            $limit = "LIMIT ".$this->mysqli->real_escape_string($this->limitStr);
 
         }else{
             $limit = "";
         }
         if(!empty($this->ord)){
-            $ordering = " ORDER BY ".$this->ord." ".$this->ordType;
+            $ordering = " ORDER BY ".$this->mysqli->real_escape_string($this->ord)." ".$this->mysqli->real_escape_string($this->ordType);
 
         }else{
             $ordering = "";
         }
         if(!empty($this->group)){
-            $group = "GROUP BY ".$this->group;
+            $group = "GROUP BY ".$this->mysqli->real_escape_string($this->group);
 
         }else{
             $group = "";
